@@ -45,7 +45,7 @@ private:
     static int pointLineWidth1_2;               // Padding信息-大小点、磁力点线线一半宽度
     static int chartIDCount;                    // 总ID计数
     static const int magPointAutoMagiRange = 10;// 磁力点自动吸附范围
-    static const int borderWidth = 20;          // Border信息-禁止绘画区域宽度
+    static const int borderWidth = 0;          // Border信息-禁止绘画区域宽度
     static const int minSizeWH = 40;            // 图形最小宽高
     static const int textBorderWidth = 10;      // 文件边界最小宽高
 
@@ -58,6 +58,9 @@ private:
     PaintChartType chartType = PaintChartType::NONE;    // 图形类型
     int ID;         // 图形编号
 
+
+
+    QString textName;
 
     static void resetStaticVal(){
         Chart_Base::magPointWidth = 7;
@@ -82,6 +85,11 @@ private:
     virtual void specialPaintUpdate(QPoint &s, QPoint &e){}             // 特殊绘图边界范围设置函数
     virtual void updateSizePointInfo(); // 更新大小点位置信息
     virtual void updateMagPointInfo();  // 更新磁力点的位置信息
+
+    virtual void updateMagPointInfo_my();
+
+
+
     void adjustPointInfo();             // 调整磁力点和大小点的位置信息
     void updateSizePointPath();         // 更新大小点绘制范围信息
     void updateMagPointPath();          // 更新磁力点的绘制范围信息
@@ -105,7 +113,8 @@ private:
     void setEndPos(int x,int y);
 
 
-
+public slots:
+    virtual void buttonClicked();
 
 protected:
     class TextBase {
@@ -266,6 +275,7 @@ protected:
 
     QPainterPath *graphPath = nullptr;  // 图形绘制范围
 
+    QVector<QPoint> m_vecMgtcPoint;//存放磁力点信息的vector
     QPoint paintStart;      // 图形绘制范围起点
     QPoint paintEnd;        // 图形绘制范围终点
     QPoint widgetStart;     // widget在画布上的起始位置：易变
@@ -285,6 +295,8 @@ protected:
 
 public:
 
+    QPoint GetWightStart();
+    QPoint GetWightEnd();
     //explicit Chart_Base(QWidget *parent = nullptr, PaintChartType type = PaintChartType::NONE);
     explicit Chart_Base(QWidget *parent = nullptr, PaintChartType type = PaintChartType::NONE, bool textType = false, bool mov = true, int mpc=4, int spc=4);
     Chart_Base( int x, int y, int w, int h, QWidget *parent = nullptr, PaintChartType type = PaintChartType::NONE);
@@ -302,8 +314,10 @@ public:
 public:
 //    void setGeometryNew(int x,int y,int w, int h);  // 设置位置、大小、更新数据
     void setXY(int x, int y);                           // 设置位置
+    void setNodeName(QString name);                     //设置节点名称
     //void setTextXY(int x, int y);
-    void setWidthHeight(int x, int y);                  // 设置大小、更新数据，用于创建时
+    void setWidthHeight(int x, int y);
+    void setWidthHeight(int x, int y, QVector<QPoint> vecMgtc);                  // 设置大小、更新数据，用于创建时
     void setWidthHeight(int x, int y, ORIENTION type);  // 设置大小、更新数据，用于创建好之后
     void applyWidthHeight();                            // 更新数据，用于读取时
     bool autoSetMagi(int &x, int &y, int &index);   // 磁力点吸附函数

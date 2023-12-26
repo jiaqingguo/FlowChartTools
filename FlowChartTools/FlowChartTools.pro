@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+QT       += xml
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = FlowChartTools
@@ -37,7 +37,11 @@ SOURCES += \
     class_Charts/chart_base.cpp \
     class_Charts/chart_plaintext.cpp \
     class_Charts/chart_line.cpp \
-    class_Charts/chart_trapezoid.cpp
+    class_Charts/chart_trapezoid.cpp \
+    class_Charts/chart_pentagram.cpp \
+    selectimgform.cpp \
+    class_Charts/chart_rectmy.cpp \
+    class_Charts/chart_block.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -51,10 +55,15 @@ HEADERS += \
     class_Charts/chart_label.h \
     class_Charts/chart_plaintext.h \
     class_Charts/chart_line.h \
-    class_Charts/chart_trapezoid.h
+    class_Charts/chart_trapezoid.h \
+    class_Charts/chart_pentagram.h \
+    selectimgform.h \
+    class_Charts/chart_rectmy.h \
+    class_Charts/chart_block.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    selectimgform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

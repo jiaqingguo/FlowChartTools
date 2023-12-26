@@ -41,8 +41,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>131</width>
-         <height>876</height>
+         <width>148</width>
+         <height>721</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
@@ -63,166 +63,388 @@
           <property name="title">
            <string>基础图形</string>
           </property>
-          <layout class="QGridLayout" name="gridLayout_3">
-           <item row="0" column="0">
-            <widget class="QPushButton" name="chart_ellipse">
-             <property name="minimumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-image: url(:/img/Round.png);</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QPushButton" name="chart_roundrect">
-             <property name="minimumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-image: url(:/img/Rounded_Rectangle.png);</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="chart_diam">
-             <property name="minimumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-image: url(:/img/diamond.png);</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QPushButton" name="chart_rect">
-             <property name="minimumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-image: url(:/img/rectangle.png);</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QPushButton" name="chart_trapezoid">
-             <property name="minimumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-image: url(:/img/trapezoid.png);</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
-            <widget class="QPushButton" name="chart_line">
-             <property name="minimumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>34</width>
-               <height>34</height>
-              </size>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">background-image: url(:/img/line.png);</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_2">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>200</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>UML通用</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="groupBox_3">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>500</height>
-           </size>
-          </property>
-          <property name="title">
-           <string>UML用例图</string>
-          </property>
+          <widget class="QPushButton" name="chart_ellipse">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>40</y>
+             <width>34</width>
+             <height>34</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-image: url(:/img/Round.png);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_roundrect">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>90</y>
+             <width>34</width>
+             <height>34</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-image: url(:/img/Rounded_Rectangle.png);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_diam">
+           <property name="geometry">
+            <rect>
+             <x>60</x>
+             <y>40</y>
+             <width>34</width>
+             <height>34</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-image: url(:/img/diamond.png);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_rect">
+           <property name="geometry">
+            <rect>
+             <x>60</x>
+             <y>90</y>
+             <width>34</width>
+             <height>34</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-image: url(:/img/rectangle.png);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_trapezoid">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>140</y>
+             <width>34</width>
+             <height>34</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-image: url(:/img/trapezoid.png);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_line">
+           <property name="geometry">
+            <rect>
+             <x>60</x>
+             <y>140</y>
+             <width>34</width>
+             <height>34</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-image: url(:/img/line.png);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_rectMy">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>190</y>
+             <width>34</width>
+             <height>34</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-image: url(:/img/green.png);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_pentagram">
+           <property name="geometry">
+            <rect>
+             <x>60</x>
+             <y>190</y>
+             <width>34</width>
+             <height>34</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-image: url(:/img/wjx.png);</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_block">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>240</y>
+             <width>34</width>
+             <height>34</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 8pt &quot;Arial&quot;;</string>
+           </property>
+           <property name="text">
+            <string>Block</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_CombinationLine">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>290</y>
+             <width>100</width>
+             <height>36</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>36</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>36</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 10pt &quot;Arial&quot;;</string>
+           </property>
+           <property name="text">
+            <string>组合关联</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_Generalization">
+           <property name="geometry">
+            <rect>
+             <x>70</x>
+             <y>240</y>
+             <width>36</width>
+             <height>36</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>36</width>
+             <height>36</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>36</width>
+             <height>36</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 10pt &quot;Arial&quot;;</string>
+           </property>
+           <property name="text">
+            <string>泛化</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_block_14">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>400</y>
+             <width>34</width>
+             <height>34</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>34</width>
+             <height>34</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 10pt &quot;Arial&quot;;</string>
+           </property>
+           <property name="text">
+            <string>依赖</string>
+           </property>
+          </widget>
+          <widget class="QPushButton" name="chart_QuoteLine">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>340</y>
+             <width>100</width>
+             <height>36</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>100</width>
+             <height>36</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>100</width>
+             <height>36</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">font: 10pt &quot;Arial&quot;;</string>
+           </property>
+           <property name="text">
+            <string>引用关联</string>
+           </property>
+          </widget>
          </widget>
         </item>
        </layout>
@@ -480,6 +702,15 @@
                   <normaloff>:/img/arrow3.png</normaloff>:/img/arrow3.png</iconset>
                 </property>
                </item>
+               <item>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="res.qrc">
+                  <normaloff>:/img/arrow4.png</normaloff>:/img/arrow4.png</iconset>
+                </property>
+               </item>
               </widget>
              </item>
             </layout>
@@ -570,6 +801,15 @@
                   <normaloff>:/img/arrow3.png</normaloff>:/img/arrow3.png</iconset>
                 </property>
                </item>
+               <item>
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="res.qrc">
+                  <normaloff>:/img/arrow4.png</normaloff>:/img/arrow4.png</iconset>
+                </property>
+               </item>
               </widget>
              </item>
             </layout>
@@ -600,6 +840,12 @@
                <width>2000</width>
                <height>1000</height>
               </size>
+             </property>
+             <property name="contextMenuPolicy">
+              <enum>Qt::CustomContextMenu</enum>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">background-image: url(:/img/2000c1000.jpg);</string>
              </property>
             </widget>
            </item>

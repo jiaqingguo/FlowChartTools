@@ -25,6 +25,9 @@ public slots:
     void sendSelChartLineColor();
     void sendSelChartFillColor();
     void changeWindowTitle(const QString &);
+
+private slots:
+    void on_flowChart_widget_customContextMenuRequested(const QPoint &pos);
 };
 
 #endif // MAINWINDOW_H

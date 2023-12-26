@@ -6,154 +6,6 @@ double Chart_Line::arrayWidth75 = 0;
 double Chart_Line::arrayLength15 = 0;
 double Chart_Line::arrayWidth15 = 0;
 
-#if (OPTIMIZATION == 1)
-void Chart_Line::angle0(QPainterPath &linePath, int &sx,int &sy, int &ex, int &ey)
-{
-    ex = endPos.rx();
-    ey = endPos.ry() - extendWidth;
-    if(sy>ey)
-    {
-        linePath.lineTo(sx,ey);
-        linePath.lineTo(ex,ey);
-        graphPath->addRect(sx - containsWidth1_2,sy,containsWidth,ey - sy);
-        graphPath->addRect(sx,ey - containsWidth1_2,ex-sx,containsWidth);
-    }else{
-        linePath.lineTo(ex,sy);
-        linePath.lineTo(ex,ey);
-        graphPath->addRect(sx,sy + containsWidth1_2,ex - sx,-containsWidth);
-        graphPath->addRect(ex - containsWidth1_2,sy,containsWidth,ey - sy);
-    }
-}
-void Chart_Line::anglePos90(QPainterPath &linePath, int &sx,int &sy, int &ex, int &ey)
-{
-    int midx,midy;
-    ex = endPos.rx();
-    ey = endPos.ry() + extendWidth;
-    if(sy>ey)
-    {
-        if(sx>ex)
-        {
-            linePath.lineTo(ex,sy);
-            linePath.lineTo(ex,ey);
-            graphPath->addRect(sx,sy-containsWidth1_2,ex-sx,containsWidth);
-            graphPath->addRect(ex-containsWidth1_2,sy,containsWidth,ey-sy);
-        }else{
-            midy = (sy+ey)>>1;
-            linePath.lineTo(sx,midy);
-            linePath.lineTo(ex,midy);
-            linePath.lineTo(ex,ey);
-            graphPath->addRect(sx - containsWidth1_2,sy,containsWidth,midy - sy);
-            graphPath->addRect(sx,midy - containsWidth1_2,ex-sx,containsWidth);
-            graphPath->addRect(ex - containsWidth1_2,midy,containsWidth,ey-midy);
-        }
-    }else{
-        if(sx>ex)
-        {
-            midx = (sx+ex)>>1;
-            linePath.lineTo(midx,sy);
-            linePath.lineTo(midx,ey);
-            linePath.lineTo(ex,ey);
-            graphPath->addRect(sx,sy-containsWidth1_2,midx-sx,containsWidth);
-            graphPath->addRect(midx-containsWidth1_2,sy,containsWidth,ey-sy);
-            graphPath->addRect(midx,ey-containsWidth1_2,ex-midx,containsWidth);
-        }else{
-            linePath.lineTo(sx,ey);
-            linePath.lineTo(ex,ey);
-            graphPath->addRect(sx - containsWidth1_2,sy,containsWidth,ey - sy);
-            graphPath->addRect(sx,ey - containsWidth1_2,ex - sx,containsWidth);
-        }
-    }
-}
-void Chart_Line::angleNeg90(QPainterPath &linePath, int &sx,int &sy, int &ex, int &ey)
-{
-    int midx,midy;
-    ex = endPos.rx();
-    ey = endPos.ry() - extendWidth;
-    if(sy>ey)
-    {
-        if(sx>ex)
-        {
-            midx = (sx+ex)>>1;
-            linePath.lineTo(midx,sy);
-            linePath.lineTo(midx,ey);
-            linePath.lineTo(ex,ey);
-            graphPath->addRect(sx,sy-containsWidth1_2,midx-sx,containsWidth);
-            graphPath->addRect(midx-containsWidth1_2,sy,containsWidth,ey-sy);
-            graphPath->addRect(midx,ey-containsWidth1_2,ex-midx,containsWidth);
-        }else{
-            linePath.lineTo(sx,ey);
-            linePath.lineTo(ex,ey);
-            graphPath->addRect(sx - containsWidth1_2,sy,containsWidth,ey - sy);
-            graphPath->addRect(sx,ey - containsWidth1_2,ex - sx,containsWidth);
-        }
-    }else{
-        if(sx>ex)
-        {
-            linePath.lineTo(sx,ey);
-            linePath.lineTo(ex,ey);
-            graphPath->addRect(sx - containsWidth1_2,sy,containsWidth,ey - sy);
-            graphPath->addRect(sx,ey - containsWidth1_2,ex - sx, containsWidth);
-        }else{
-            midy = (sy+ey)>>1;
-            linePath.lineTo(sx,midy);
-            linePath.lineTo(ex,midy);
-            linePath.lineTo(ex,ey);
-            graphPath->addRect(sx - containsWidth1_2,sy,containsWidth,midy - sy);
-            graphPath->addRect(sx,midy-containsWidth1_2,ex-sx,containsWidth);
-            graphPath->addRect(ex - containsWidth1_2,midy,containsWidth,ey-midy);
-        }
-    }
-}
-void Chart_Line::angle1EastWest(QPainterPath &linePath, int &sx,int &sy, int &ex, int &ey)
-{
-    int midx,midy;
-    ex = endPos.rx() + extendWidth;
-    ey = endPos.ry();
-    if(sx>ex)
-    {
-        midx = (sx+ex)>>1;
-        linePath.lineTo(midx,sy);
-        linePath.lineTo(midx,ey);
-        linePath.lineTo(ex,ey);
-        graphPath->addRect(sx,sy - containsWidth1_2,midx - sx,containsWidth);
-        graphPath->addRect(midx - containsWidth1_2,sy,containsWidth,ey - sy);
-        graphPath->addRect(midx,ey - containsWidth1_2,ex - midx,containsWidth);
-    }else{
-        midy = (sy+ey)>>1;
-        linePath.lineTo(sx,midy);
-        linePath.lineTo(ex,midy);
-        linePath.lineTo(ex,ey);
-        graphPath->addRect(sx - containsWidth1_2,sy,containsWidth,midy - sy);
-        graphPath->addRect(sx,midy-containsWidth1_2,ex-sx,containsWidth);
-        graphPath->addRect(ex - containsWidth1_2,midy,containsWidth,ey-midy);
-    }
-}
-void Chart_Line::angle1SouthNorth(QPainterPath &linePath, int &sx,int &sy, int &ex, int &ey)
-{
-    int midx,midy;
-    ex = endPos.rx();
-    ey = endPos.ry() - extendWidth;
-    if(sy>ey)
-    {
-        midx = (sx+ex)>>1;
-        linePath.lineTo(midx,sy);
-        linePath.lineTo(midx,ey);
-        linePath.lineTo(ex,ey);
-        graphPath->addRect(sx,sy - containsWidth1_2,midx - sx,containsWidth);
-        graphPath->addRect(midx - containsWidth1_2,sy,containsWidth,ey - sy);
-        graphPath->addRect(midx,ey - containsWidth1_2,ex - midx,containsWidth);
-    }else{
-        midy = (sy+ey)>>1;
-        linePath.lineTo(sx,midy);
-        linePath.lineTo(ex,midy);
-        linePath.lineTo(ex,ey);
-        graphPath->addRect(sx - containsWidth1_2,sy,containsWidth,midy - sy);
-        graphPath->addRect(sx,midy-containsWidth1_2,ex-sx,containsWidth);
-        graphPath->addRect(ex - containsWidth1_2,midy,containsWidth,ey-midy);
-    }
-}
-
-#endif
 
 void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const int x,const int y,QPainter & p,QPainterPath &linePath, QPainterPath &graphPath)
 {
@@ -174,6 +26,7 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
                     linePath.moveTo(x,y);
                 }break;
                 case LINE_HEAD_TYPE::ARROW2:{
+                qDebug() << "Chart_Line::drawLineHead"<< "----------NORTH------ARROW2" << endl;
                     linePath.moveTo(x - arrayWidth,y - arrayLength);
                     linePath.lineTo(x + arrayWidth,y - arrayLength);
                     linePath.lineTo(x,y);
@@ -190,6 +43,20 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
                     p.fillPath(tmp,p.pen().brush());
                     p.drawPath(tmp);
                     linePath.moveTo(x,y);
+                }break;
+                case LINE_HEAD_TYPE::ARROW4:{
+                    qDebug() << "Chart_Line::drawLineHead"<< "----------NORTH-------ARROW4---向下" << endl;
+                    QPainterPath tmp;
+                    tmp.moveTo(x ,y - arrayLength);
+                    tmp.lineTo(x - arrayWidth/2,y - arrayLength/2);
+                    tmp.lineTo(x,y);
+                    tmp.lineTo(x + arrayWidth/2,y - arrayLength/2);
+                    tmp.lineTo(x ,y - arrayLength);
+
+                    p.fillPath(tmp,p.pen().brush());
+                    p.drawPath(tmp);
+                    linePath.moveTo(x,y);
+
                 }break;
                 case LINE_HEAD_TYPE::ARROW0:{
                     linePath.lineTo(x,y);
@@ -213,6 +80,7 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
                     linePath.moveTo(x,y);
                 }break;
                 case LINE_HEAD_TYPE::ARROW2:{
+                    //qDebug() << "Chart_Line::drawLineHead"<< "----------朝东" << endl;
                     linePath.moveTo(x + arrayLength,y - arrayWidth);
                     linePath.lineTo(x + arrayLength,y + arrayWidth);
                     linePath.lineTo(x,y);
@@ -226,6 +94,19 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
                     tmp.lineTo(x + arrayLength,y + arrayWidth);
                     tmp.lineTo(x,y);
                     tmp.lineTo(x + arrayLength,y - arrayWidth);
+
+                    p.fillPath(tmp,p.pen().brush());
+                    p.drawPath(tmp);
+                    linePath.moveTo(x,y);
+                }break;
+                case LINE_HEAD_TYPE::ARROW4:{
+                    //qDebug() << "Chart_Line::drawLineHead"<< "----------EAST-------ARROW4" << endl;
+                    QPainterPath tmp;
+                    tmp.moveTo(x + arrayLength,y);
+                    tmp.lineTo(x + arrayLength/2,y + arrayWidth/2);
+                    tmp.lineTo(x,y);
+                    tmp.lineTo(x + arrayLength/2,y - arrayWidth/2);
+                    tmp.lineTo(x + arrayLength,y);
 
                     p.fillPath(tmp,p.pen().brush());
                     p.drawPath(tmp);
@@ -254,6 +135,7 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
                     linePath.moveTo(x,y);
                 }break;
                 case LINE_HEAD_TYPE::ARROW2:{
+                    //qDebug() << "Chart_Line::drawLineHead"<< "----------SOUTH" << endl;
                     linePath.moveTo(x - arrayWidth,y + arrayLength);
                     linePath.lineTo(x + arrayWidth,y + arrayLength);
                     linePath.lineTo(x,y);
@@ -271,6 +153,20 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
                 p.drawPath(tmp);
                 linePath.moveTo(x,y);
                 }break;
+            case LINE_HEAD_TYPE::ARROW4:{
+                //qDebug() << "Chart_Line::drawLineHead"<< "----------SOUTH-------ARROW4---向上" << endl;
+                QPainterPath tmp;
+                tmp.moveTo(x ,y + arrayLength);
+                tmp.lineTo(x + arrayWidth/2,y + arrayLength/2);
+                tmp.lineTo(x,y);
+                tmp.lineTo(x - arrayWidth/2,y + arrayLength/2);
+                tmp.lineTo(x ,y + arrayLength);
+
+                p.fillPath(tmp,p.pen().brush());
+                p.drawPath(tmp);
+                linePath.moveTo(x,y);
+
+            }break;
                 case LINE_HEAD_TYPE::ARROW0:{
                     linePath.lineTo(x,y);
                 }break;
@@ -293,6 +189,7 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
                     linePath.moveTo(x,y);
                 }break;
                 case LINE_HEAD_TYPE::ARROW2:{
+                    //qDebug() << "Chart_Line::drawLineHead"<< "----------WEST" << endl;
                     linePath.moveTo(x - arrayLength,y - arrayWidth);
                     linePath.lineTo(x - arrayLength,y + arrayWidth);
                     linePath.lineTo(x,y);
@@ -310,6 +207,19 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
                     p.drawPath(tmp);
                     linePath.moveTo(x,y);
                 }break;
+            case LINE_HEAD_TYPE::ARROW4:{
+                //qDebug() << "Chart_Line::drawLineHead"<< "----------EAST-------ARROW4" << endl;
+                QPainterPath tmp;
+                tmp.moveTo(x - arrayLength,y);
+                tmp.lineTo(x - arrayLength/2,y + arrayWidth/2);
+                tmp.lineTo(x,y);
+                tmp.lineTo(x - arrayLength/2,y - arrayWidth/2);
+                tmp.lineTo(x - arrayLength,y);
+
+                p.fillPath(tmp,p.pen().brush());
+                p.drawPath(tmp);
+                linePath.moveTo(x,y);
+            }break;
                 case LINE_HEAD_TYPE::ARROW0:{
                     linePath.lineTo(x,y);
                 }break;
@@ -349,6 +259,7 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
                 }break;
                 case LINE_HEAD_TYPE::ARROW3:{
                     QPainterPath tmp;
+                    qDebug() << "ARROW3-----NORTHEAST-----" << endl;
                     tmp.moveTo(x + arrayLength75,y - arrayWidth75);
                     tmp.lineTo(x + arrayLength15,y - arrayWidth15);
                     tmp.lineTo(x,y);
@@ -356,6 +267,20 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
 
                     p.fillPath(tmp,p.pen().brush());
                     p.drawPath(tmp);
+                    linePath.moveTo(x,y);
+                }break;
+                case LINE_HEAD_TYPE::ARROW4:{
+                    qDebug() << "ARROW4-----NORTHEAST-----左下" << endl;
+                    QPainterPath tmp;
+//                    tmp.moveTo(x + arrayLength75,y - arrayWidth75);
+//                    tmp.lineTo(x + arrayLength15,y - arrayWidth15);
+//                    tmp.lineTo(x,y);
+//                    tmp.lineTo(x - arrayLength75,y - arrayWidth75);
+//                    tmp.lineTo(x + arrayLength75,y - arrayWidth75);
+
+                    p.fillPath(tmp,p.pen().brush());
+                    p.drawPath(tmp);
+
                     linePath.moveTo(x,y);
                 }break;
                 case LINE_HEAD_TYPE::ARROW0:{
@@ -397,7 +322,7 @@ void Chart_Line::drawLineHead(const ORIENTION o,const LINE_HEAD_TYPE lht,const i
                 }break;
                 case LINE_HEAD_TYPE::ARROW3:{
                     QPainterPath tmp;
-                    tmp.moveTo(x - arrayLength75,y - arrayWidth75);
+                    tmp.moveTo(x - arrayLength75,y);
                     tmp.lineTo(x - arrayLength15,y - arrayWidth15);
                     tmp.lineTo(x,y);
                     tmp.lineTo(x - arrayLength75,y - arrayWidth75);
@@ -542,7 +467,9 @@ void Chart_Line::drawStraightLine(int sx, int sy, int ex, int ey,QPainterPath &l
 void Chart_Line::paintChart(QPainter & p)
 {
     QPen tmp = p.pen();
+    tmp.setStyle(Qt::DashLine);
     p.setPen(paintChartDrawPen);
+    //p.setPen(paintChartDrawPen);
 
     chartText.textType1->setGeometry((width()>>1) - (chartText.textType1->width()>>1),(height()>>1) - (chartText.textType1->height()>>1),chartText.textType1->width(),chartText.textType1->height());
     int midx,midy;
@@ -551,123 +478,7 @@ void Chart_Line::paintChart(QPainter & p)
 
     if(graphPath) delete graphPath;
     graphPath = new QPainterPath;
-#if (OPTIMIZATION == 1)
-    switch(startDirect)
-    {
-        case ORIENTION::NORTH:{
-            sx = startPos.rx();
-            sy = startPos.ry() - extendWidth;
-            linePath.moveTo(startPos.rx(),startPos.ry());
-            linePath.lineTo(sx,sy);
-            graphPath->addRect(sx - containsWidth1_2,startPos.ry(),containsWidth,-extendWidth);
-            switch(endDirect)
-            {
-                case ORIENTION::NORTH:{
-                    angle0(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex - containsWidth1_2,ey,containsWidth,extendWidth);
-                }break;
-                case ORIENTION::EAST:{
-                    angleNeg90(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex,ey - containsWidth1_2,-extendWidth,containsWidth);
-                }break;
-                case ORIENTION::SOUTH:{
-                    angle1SouthNorth(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex - containsWidth1_2,ey,containsWidth,-extendWidth);
-                }break;
-                case ORIENTION::WEST:{
-                    anglePos90(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex,ey - containsWidth1_2,extendWidth,containsWidth);
-                }
-            }
-            linePath.lineTo(endPos.rx(),endPos.ry());
-        }break;
-        case ORIENTION::EAST:{
-            sx = startPos.rx() + extendWidth;
-            sy = startPos.ry();
-            linePath.moveTo(startPos.rx(),startPos.ry());
-            linePath.lineTo(sx,sy);
-            graphPath->addRect(startPos.rx(),sy - containsWidth1_2,extendWidth,containsWidth);
-            switch(endDirect)
-            {
-                case ORIENTION::NORTH:{
-                    anglePos90(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex - containsWidth1_2,ey,containsWidth,extendWidth);
-                }break;
-                case ORIENTION::EAST:{
-                    angle0(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex,ey - containsWidth1_2,-extendWidth,containsWidth);
-                }break;
-                case ORIENTION::SOUTH:{
-                    angleNeg90(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex - containsWidth1_2,ey,containsWidth,-extendWidth);
-                }break;
-                case ORIENTION::WEST:{
-                    angle1EastWest(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex,ey - containsWidth1_2,extendWidth,containsWidth);
-                }
-            }
-            linePath.lineTo(endPos.rx(),endPos.ry());
-        }break;
-        case ORIENTION::SOUTH:{
-            sx = startPos.rx();
-            sy = startPos.ry() + extendWidth;
-            linePath.moveTo(startPos.rx(),startPos.ry());
-            linePath.lineTo(sx,sy);
-            graphPath->addRect(startPos.rx() - extendWidth,startPos.ry(),containsWidth,extendWidth);
-            switch(endDirect)
-            {
-                case ORIENTION::NORTH:{
-                    angle1SouthNorth(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex - containsWidth1_2,ey,containsWidth,extendWidth);
-                }break;
-                case ORIENTION::EAST:{
-                    anglePos90(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex,ey - containsWidth1_2,-extendWidth,containsWidth);
-                }break;
-                case ORIENTION::SOUTH:{
-                    angle0(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex - containsWidth1_2,ey,containsWidth,-extendWidth);
 
-                }break;
-                case ORIENTION::WEST:{
-                    angleNeg90(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex,ey - containsWidth1_2,extendWidth,containsWidth);
-                }
-            }
-            linePath.lineTo(endPos.rx(),endPos.ry());
-        }break;
-        case ORIENTION::WEST:{
-            sx = startPos.rx() - extendWidth;
-            sy = startPos.ry();
-            linePath.moveTo(startPos.rx(),startPos.ry());
-            linePath.lineTo(sx,sy);
-            graphPath->addRect(startPos.rx(),startPos.ry() - containsWidth1_2,-extendWidth,containsWidth);
-            switch(endDirect)
-            {
-                case ORIENTION::NORTH:{
-                    anglePos90(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex - containsWidth1_2,ey,containsWidth,extendWidth);
-                }break;
-                case ORIENTION::EAST:{
-                    angle1EastWest(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex,ey - containsWidth1_2,-extendWidth,containsWidth);
-                }break;
-                case ORIENTION::SOUTH:{
-                    anglePos90(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex - containsWidth1_2,ey,containsWidth,-extendWidth);
-                }break;
-                case ORIENTION::WEST:{
-                    angle0(linePath,sx,sy,ex,ey);
-                    graphPath->addRect(ex,ey - containsWidth1_2,extendWidth,containsWidth);
-                }
-            }
-            linePath.lineTo(endPos.rx(),endPos.ry());
-        }break;
-        default:
-        {
-        }
-    }
-#else
     switch(startDirect)
     {
         case ORIENTION::NORTH:{
@@ -1601,7 +1412,7 @@ void Chart_Line::paintChart(QPainter & p)
         }
     }
 
-#endif
+
 //    linePath.lineTo(midx,startPos.ry());
 //    linePath.lineTo(midx,endPos.ry());
 //    linePath.lineTo(endPos.rx(),endPos.ry());
@@ -1611,6 +1422,11 @@ void Chart_Line::paintChart(QPainter & p)
 //    graphPath->addRect(startPos.rx(),startPos.ry()-containsWidth1_2,midx-startPos.rx(),containsWidth);
 //    graphPath->addRect(midx-containsWidth1_2,startPos.ry()-containsWidth1_2,containsWidth,endPos.ry()-startPos.ry()+containsWidth);
 //    graphPath->addRect(midx-containsWidth1_2,endPos.ry()-containsWidth1_2,endPos.rx()-midx+containsWidth,containsWidth);
+
+    //------------绘制虚线--------------
+
+
+
     p.setPen(QPen(QColor(0,0,0,0),0));
     graphPath->setFillRule(Qt::WindingFill);
     p.drawPath(*graphPath);
@@ -1708,4 +1524,5 @@ QDataStream &operator>>(QDataStream &fin, Chart_Line &cl)
 
     return fin;
 }
+
 

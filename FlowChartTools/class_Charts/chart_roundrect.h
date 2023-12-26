@@ -1,7 +1,7 @@
 ﻿#ifndef CHART_ROUNDRECT_H
 #define CHART_ROUNDRECT_H
 #include "chart_base.h"
-
+#include <QPushButton>
 class Chart_RoundRect : public Chart_Base
 {
 private:
@@ -12,6 +12,9 @@ public:
     Chart_RoundRect(Chart_RoundRect &cr):Chart_Base(cr){}
     Chart_RoundRect( int x1, int y1, int x2, int y2, QWidget *parent = nullptr,PaintChartType type = PaintChartType::ROUNDRECT) : Chart_Base(x1,y1,x2,y2,parent,type){}
     ~Chart_RoundRect(){}
+    QPushButton *btn_open;
+public slots:
+    virtual void buttonClicked();
 };
 
 #endif // CHART_ROUNDRECT_H

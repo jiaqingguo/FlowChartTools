@@ -12,6 +12,7 @@ QBrush Chart_Base::paintFillPen  = QBrush(QColor(255,255,255));
 
 Chart_Base::Chart_Base(QWidget *parent, PaintChartType type, bool textType, bool mov, int mpc, int spc):QWidget(parent),magPoint(mpc),sizePoint(spc),movable(mov),chartText(textType)
 {
+
     chartType = type;
     widgetPosInit();
     varInit();
@@ -25,6 +26,7 @@ Chart_Base::Chart_Base(QWidget *parent, PaintChartType type, bool textType, bool
 
 Chart_Base::Chart_Base( int x, int y, int w, int h, QWidget *parent, PaintChartType type):QWidget(parent),magPoint(4),sizePoint(4)
 {
+    qDebug() << "Chart_Base::Chart_Base:: " << endl;
     chartType = type;
     widgetPosInit(x,y,w,h);
     varInit();
@@ -115,17 +117,26 @@ void Chart_Base::pointInit()
 
     updateSizePointInfo();
     updateSizePointPath();
-    updateMagPointInfo();
+    if(chartType == PaintChartType::RECT_MY)
+    {
+        updateMagPointInfo_my();
+    }else
+    {
+        updateMagPointInfo();
+    }
+
     updateMagPointPath();
 }
 
-
+//设置文本
 void Chart_Base::textInit()
 {
+    qDebug() << "Chart_Base::textInit()::" << endl;
     if(chartText.textType)
     {
         chartText.textType1 = new Chart_Label(this);
-        chartText.textType1->setText("文本注释");
+        //chartText.textType1->setStyleSheet("font-size:20px;color:blue");//设置线的文本
+        //chartText.textType1->setText(" ");
         chartText.textType1->setWordWrap(true);
         chartText.textType1->move(paintStart.rx() + sizePointWidth,paintStart.ry() + sizePointWidth);
         chartText.textType1->adjustSize();
@@ -135,11 +146,20 @@ void Chart_Base::textInit()
     else
     {
         chartText.textType2 = new Chart_PlainText(this);
-        chartText.textType2->appendPlainText("文本注释");
+        //4、创建TextCharFormat对象
+        QTextCharFormat fmt;
+        //5、设置文本颜色
+        //fmt.setForeground(QColor(Qt::black));
+        //fmt.setFontPointSize(15);
+        //6、设置颜色
+        //chartText.textType2->mergeCurrentCharFormat(fmt);
+        chartText.textType2->appendPlainText(textName);
+        chartText.textType2->setFixedSize(150,50);//设置那个黑框大小
         //chartText.textType2->show();
         chartText.textType2->setFrameShape(QFrame::NoFrame);
         chartText.textType2->setFrameShadow(QFrame::Plain);
-        chartText.textType2->move(paintStart.rx() + sizePointWidth,paintStart.ry() + sizePointWidth);
+        chartText.textType2->move(paintStart.rx() + 50,paintStart.ry() + 20);
+        //chartText.textType2->move(paintStart.rx() + sizePointWidth,paintStart.ry() + sizePointWidth);
         chartText.textType2->setStyleSheet("background:transparent;");
         chartText.textType2->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
         chartText.textType2->adjustSize();
@@ -151,11 +171,16 @@ void Chart_Base::textInit()
     }
 
 }
-
+//设置默认颜色
 void Chart_Base::colorInit()
 {
-    paintChartDrawPen  = QPen(QColor(0,0,0),2);
-    paintChartFillPen  = QBrush(QColor(255,255,255));
+    //paintChartDrawPen = QPen(Qt::DotLine);
+
+    paintChartDrawPen  = QPen(QColor(0,0,0),2);//虚线 Qt::DashLine
+
+    //paintChartFillPen  = QBrush(QColor(255,255,255));
+    //paintChartFillPen  = QBrush(QColor(135,206,235));//蓝色的那个
+    paintChartFillPen  = QBrush(QColor(135,206,235,0));//蓝色的那个
 }
 
 
@@ -263,6 +288,30 @@ void Chart_Base::updateMagPointInfo()
         magPoint.i_point[3]->setY(midy);
         magPoint.i_point[3]->setRotate(ORIENTION::WEST);
     }
+}
+
+void Chart_Base::updateMagPointInfo_my()
+{
+//    if(magPoint.i_point.size()>=4)
+//    {
+//        int x1 = paintStart.rx(),y1 = paintStart.ry();
+//        int x2 = paintEnd.rx(),y2 = paintEnd.ry();
+//        int midx = ((paintStart.rx() + paintEnd.rx())>>1);
+//        int midy = ((paintStart.ry() + paintEnd.ry())>>1);
+
+//        magPoint.i_point[0]->setX(midx);
+//        magPoint.i_point[0]->setY(y1);
+//        magPoint.i_point[0]->setRotate(ORIENTION::NORTH);
+//        magPoint.i_point[1]->setX(x2);
+//        magPoint.i_point[1]->setY(midy);
+//        magPoint.i_point[1]->setRotate(ORIENTION::EAST);
+//        magPoint.i_point[2]->setX(midx);
+//        magPoint.i_point[2]->setY(y2);
+//        magPoint.i_point[2]->setRotate(ORIENTION::SOUTH);
+//        magPoint.i_point[3]->setX(x1);
+//        magPoint.i_point[3]->setY(midy);
+//        magPoint.i_point[3]->setRotate(ORIENTION::WEST);
+//    }
 }
 
 void Chart_Base::adjustPointInfo()
@@ -594,89 +643,56 @@ void Chart_Base::setXY(int x, int y)
     updateWidgetPosInof();
     updateMagPointLine();
 }
+//设置节点名称
+void Chart_Base::setNodeName(QString name)
+{
+    qDebug() << "Chart_Base::setNodeName:: " << name << endl;
+    textName = name;
+
+    if(chartText.textType)
+    {
+        chartText.textType1 = new Chart_Label(this);
+        chartText.textType1->setStyleSheet("font-size:20px;color:blue");
+        chartText.textType1->setText("文本注释");
+        chartText.textType1->setWordWrap(true);
+        chartText.textType1->move(paintStart.rx() + sizePointWidth,paintStart.ry() + sizePointWidth);
+        chartText.textType1->adjustSize();
+        connect(chartText.textType1,SIGNAL(setTypeChangeTextPos(CHART_LABEL_MOUSE_TYPE,int,int)),this,SLOT(setTypeChangeTextPos(CHART_LABEL_MOUSE_TYPE,int,int)));
+        //chartText.textType1->show();
+    }
+    else
+    {
+        chartText.textType2 = new Chart_PlainText(this);
+        //4、创建TextCharFormat对象
+        QTextCharFormat fmt;
+        //5、设置文本颜色
+        fmt.setForeground(QColor(Qt::black));
+        fmt.setFontPointSize(15);
+        //6、设置颜色
+        chartText.textType2->mergeCurrentCharFormat(fmt);
+        chartText.textType2->appendPlainText(textName);
+        chartText.textType2->setFixedSize(150,50);//设置那个黑框大小
+        //chartText.textType2->show();
+        chartText.textType2->setFrameShape(QFrame::NoFrame);
+        chartText.textType2->setFrameShadow(QFrame::Plain);
+        chartText.textType2->move(paintStart.rx() + 50,paintStart.ry() + 20);
+        //chartText.textType2->move(paintStart.rx() + sizePointWidth,paintStart.ry() + sizePointWidth);
+        chartText.textType2->setStyleSheet("background:transparent;");
+        chartText.textType2->setSizePolicy(QSizePolicy::Preferred,QSizePolicy::Preferred);
+        chartText.textType2->adjustSize();
+        chartText.textType2->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+        chartText.textType2->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        chartText.textType2->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+        connect(chartText.textType2,SIGNAL(setTypeChangeTextPos(CHART_TEXT_MOUSE_TYPE,int,int)),this,SLOT(setTypeChangeTextPos(CHART_TEXT_MOUSE_TYPE,int,int)));
+        chartText.textType2->setTextInteractionFlags(Qt::NoTextInteraction);
+    }
+}
+
 void Chart_Base::setWidthHeight(int x, int y)
 {
-#if 0
-    ORIENTION type;
-    if(x>=widgetPos.rx()+borderWidth)
-    {
-        if(y>=widgetPos.ry()+borderWidth)  type = ORIENTION::SOUTHEAST;
-        else type = ORIENTION::NORTHEAST;
-    }
-    else if(y>=widgetPos.ry()+borderWidth)
-    {
-        if(x>=widgetPos.rx()+borderWidth) type = ORIENTION::SOUTHEAST;
-        else    type = ORIENTION::SOUTHWEST;
-    }
-    else
-    {
-        type = ORIENTION::NORTHWEST;
-    }
 
-    switch(type)
-    {
-        case ORIENTION::NORTHWEST:
-        {
-            if(type != lastType)
-            {
-                widgetEnd.setX(widgetPos.rx()+borderWidth);
-                widgetEnd.setY(widgetPos.ry()+borderWidth);
-            }
-            widgetStart.setX(x - borderWidth);
-            widgetStart.setY(y - borderWidth);
-        }break;
-        case ORIENTION::NORTHEAST:
-        {
-            if(type != lastType)
-            {
-                widgetEnd.setY(widgetPos.ry()+borderWidth);
-                widgetStart.setX(widgetPos.rx()+borderWidth);
-            }
-            widgetEnd.setX(x + borderWidth);
-            widgetStart.setY(y - borderWidth);
-        }break;
-        case ORIENTION::SOUTHEAST:
-        {
-            if(type != lastType)
-            {
-                widgetStart.setX(widgetPos.rx()+borderWidth);
-                widgetStart.setY(widgetPos.ry()+borderWidth);
-            }
-            widgetEnd.setX(x + borderWidth);
-            widgetEnd.setY(y + borderWidth);
-        }break;
-        case ORIENTION::SOUTHWEST:
-        {
-            if(type != lastType)
-            {
-                widgetStart.setY(widgetPos.ry()+borderWidth);
-                widgetEnd.setX(widgetPos.rx()+borderWidth);
-            }
-            widgetStart.setX(x - borderWidth);
-            widgetEnd.setY(y + borderWidth);
-        }break;
-    }
-    lastType = type;
-#elif 0
-    ORIENTION type;
-    if(x < widgetStart.rx())
-    {
-        widgetEnd.setX(x);
-        //widgetStart.setY(widgetStart.ry()+borderWidth);
-    }
-    else
-    {
-        widgetEnd.setX(x);
-    }
-    if(y < widgetStart.ry())
-    {
-        widgetEnd.setY(y);
-        //widgetStart.setX(widgetStart.rx()+borderWidth);
-    }
-    else
-    {
-        widgetEnd.setY(y);
-    }
+#if 0
+
 #else
     widgetEnd.setX(x);
     widgetEnd.setY(y);
@@ -687,6 +703,27 @@ void Chart_Base::setWidthHeight(int x, int y)
     updateSizePointInfo();
     updateSizePointPath();
     updateMagPointInfo();
+    updateMagPointPath();
+    updateMagPointLine();
+    updateTextInfo();
+}
+
+void Chart_Base::setWidthHeight(int x, int y,QVector<QPoint> vecMgtc)
+{
+    m_vecMgtcPoint = vecMgtc;
+#if 0
+    ORIENTION type;
+
+#else
+    widgetEnd.setX(x);
+    widgetEnd.setY(y);
+#endif
+
+    updateWidgetPosInof();
+    updatePaintInfo();
+    updateSizePointInfo();
+    updateSizePointPath();
+    updateMagPointInfo_my();
     updateMagPointPath();
     updateMagPointLine();
     updateTextInfo();
@@ -953,11 +990,6 @@ QDataStream &operator>>(QDataStream &fin, Chart_Base &cb)
     return fin;
 }
 
-
-
-
-
-
 void Chart_Base::showMagSize()
 {
     showAll = true;
@@ -968,7 +1000,7 @@ void Chart_Base::hideMagSize()
 {
     if(showAll)
     {
-        this->releaseKeyboard();
+//        this->releaseKeyboard();
         showAll = false;
         if(chartText.textType)
         {
@@ -1001,8 +1033,6 @@ void Chart_Base::hideMagSize()
         update();
     }
 }
-
-
 void Chart_Base::showMagOnly()
 {
     if(showMag == false)
@@ -1016,7 +1046,7 @@ void Chart_Base::hideMagOnly()
 {
     if(showMag)
     {
-        this->releaseKeyboard();
+//        this->releaseKeyboard();
         showMag = false;
         if(chartText.textType)
         {
@@ -1048,9 +1078,6 @@ void Chart_Base::hideMagOnly()
         update();
     }
 }
-
-
-
 
 void Chart_Base::paintEvent(QPaintEvent *event)
 {
@@ -1261,7 +1288,7 @@ void Chart_Base::mouseDoubleClickEvent(QMouseEvent *event)
             chartText.tmpEdit2->show();
             chartText.tmpEdit2->setFocus();
         }
-        this->grabKeyboard();
+//        this->grabKeyboard();
     }else{
         event->ignore();
     }
@@ -1270,4 +1297,19 @@ void Chart_Base::mouseDoubleClickEvent(QMouseEvent *event)
 void Chart_Base::leaveEvent(QEvent *event)
 {
     hideMagOnly();
+}
+void Chart_Base::buttonClicked()
+{
+
+    qDebug() << "Chart_Base::buttonClicked()::按钮被点击了!!!" << endl;
+
+}
+QPoint Chart_Base::GetWightStart()
+{
+    //qDebug() << "Chart_Base::GetWightStart()" << widgetStart.rx() << endl;
+    return widgetStart;
+}
+QPoint Chart_Base::GetWightEnd()
+{
+    return widgetEnd;
 }
